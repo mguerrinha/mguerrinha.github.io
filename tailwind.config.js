@@ -10,7 +10,9 @@ module.exports = {
         main_orange: "#f77f00",
         main_red: "#d62828",
         text_color: "#003049",
-        sec_black: "#1a1a1a"
+        sec_black: "#1a1a1a",
+        bluebg: "#1d2d44",
+        whitebg: "#edede9",
 
       },
     },

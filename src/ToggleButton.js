@@ -6,8 +6,18 @@ const ToggleButton = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <button onClick={toggleTheme} className='hover:text-main_orange p-1 text-2xl'>
-        {theme === 'light' ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
+    <button onClick={toggleTheme} className="button">
+      {theme === 'light' ? (
+        <>
+          <MdOutlineLightMode className="icon" />
+          <MdOutlineDarkMode className="icon icon-enter" />
+        </>
+      ) : (
+        <>
+          <MdOutlineDarkMode className="icon" />
+          <MdOutlineLightMode className="icon icon-enter" />
+        </>
+      )}
     </button>
   );
 };

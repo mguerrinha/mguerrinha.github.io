@@ -4,14 +4,77 @@
 
 body.light {
     background-color: #edede9;
-    color: black;
+    color: #1d2d44;
   }
   
   body.dark {
     background-color: #1d2d44;
-    color: white;
+    color: #edede9;
   }
 
 body {
     padding-top: 16px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: end;
+  padding-top: 2rem;
+  justify-content: center;
+  font-size: 1.7rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.icon {
+  position: absolute;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.icon-enter {
+  opacity: 0;
+  transform: rotate(-180deg);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.button:hover .icon {
+  opacity: 0;
+  color: #f77f00;
+}
+
+.button:hover .icon-enter {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.nav-link {
+  position: relative;
+  padding-bottom: 3px;
+  transition: color 0.3s;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 2px;
+  left: 0;
+  background-color: var(--main-orange, #ffa500);
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+  transform-origin: bottom right;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
