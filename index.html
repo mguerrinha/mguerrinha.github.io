@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Miguel Guerrinha · Software Engineer</title>
+    <meta
+      name="description"
+      content="Miguel Guerrinha: Junior Software Engineer at Critical Flytech, MSc student in Informatics and Computing Engineering at FEUP, and former Electrical Systems lead at FAST, FEUP's solar boat team."
+    />
+    <meta property="og:title" content="Miguel Guerrinha · Software Engineer" />
+    <meta
+      property="og:description"
+      content="Junior Software Engineer at Critical Flytech and MSc student in Informatics and Computing Engineering at FEUP."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0b1321" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <script>
+      // Apply the saved (or system) theme before first paint to avoid a flash.
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme");
+          var dark = saved
+            ? saved === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript>This site needs JavaScript enabled to run.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

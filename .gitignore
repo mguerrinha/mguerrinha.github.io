@@ -10,6 +10,10 @@
 
 # production
 /build
+/dist
+
+# machine-specific preview config
+/.claude/launch.json
 
 # misc
 .DS_Store

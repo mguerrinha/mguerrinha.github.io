@@ -1,80 +1,195 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-body.light {
-    background-color: #edede9;
-    color: #1d2d44;
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------
+   Theme tokens. Navy and sun-orange carry over from the original
+   site; everything else is derived from them.
+---------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+  --bg: #f6f3ec;
+  --bg-soft: #ece8dd;
+  --surface: #fffdf9;
+  --ink: #16233a;
+  --muted: #56637b;
+  --line: rgb(22 35 58 / 0.13);
+  --accent: #b34800; /* orange dark enough for small text on paper */
+  --sun: #f77f00;
+  --sun-soft: rgb(247 127 0 / 0.13);
+  --wave: #1d2d44;
+  --navy: #0b1321;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #0b1321;
+  --bg-soft: #0f192b;
+  --surface: #131f35;
+  --ink: #edede9;
+  --muted: #98a4ba;
+  --line: rgb(237 237 233 / 0.11);
+  --accent: #ff9d45;
+  --sun: #f77f00;
+  --sun-soft: rgb(247 127 0 / 0.16);
+  --wave: #9db9de;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-sun: var(--sun);
+  --color-sun-soft: var(--sun-soft);
+  --color-navy: var(--navy);
+
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Geist Variable", ui-sans-serif, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SFMono-Regular", monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
   }
-  
-  body.dark {
-    background-color: #1d2d44;
-    color: #edede9;
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.35s ease, color 0.35s ease;
   }
 
-body {
-    padding-top: 16px;
+  ::selection {
+    background: var(--sun);
+    color: #0b1321;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--sun);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  button {
+    cursor: pointer;
+  }
 }
 
-html {
-  scroll-behavior: smooth;
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.2;
+    color: var(--ink);
+    background: var(--surface);
+  }
 }
 
-.button {
-  position: relative;
-  display: inline-flex;
-  align-items: end;
-  padding-top: 2rem;
-  justify-content: center;
-  font-size: 1.7rem;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-}
-
-.icon {
-  position: absolute;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.icon-enter {
+/* --- Scroll reveal ------------------------------------------------ */
+.reveal {
   opacity: 0;
-  transform: rotate(-180deg);
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--delay, 0ms);
 }
-
-.button:hover .icon {
-  opacity: 0;
-  color: #f77f00;
-}
-
-.button:hover .icon-enter {
+.reveal.is-visible {
   opacity: 1;
-  transform: rotate(0deg);
+  transform: none;
 }
 
-.nav-link {
-  position: relative;
-  padding-bottom: 3px;
-  transition: color 0.3s;
-}
-
-.nav-link::after {
-  content: '';
+/* --- Drifting wave lines ------------------------------------------ */
+.wave {
   position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 2px;
   left: 0;
-  background-color: var(--main-orange, #ffa500);
-  transform: scaleX(0);
-  transition: transform 0.3s ease-in-out;
-  transform-origin: bottom right;
+  width: 200%;
+  animation: drift linear infinite;
+  will-change: transform;
+}
+@keyframes drift {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
+/* --- Hero entrance ------------------------------------------------ */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes sunrise {
+  from {
+    opacity: 0;
+    transform: translate(-18%, 22%) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.sunrise {
+  animation: sunrise 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .rise,
+  .sunrise {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+  .wave {
+    animation: none;
+  }
 }

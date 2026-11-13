@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Miguel Guerrinha · personal website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Single-page personal site built with React, Vite and Tailwind CSS. English and Portuguese, light and dark themes.
 
-## Available Scripts
+## Run it
 
-In the project directory, you can run:
+Requires Node.js 20 or newer.
 
-### `npm start`
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # production build in dist/
+npm run preview  # serve the production build locally
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Edit the content
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Everything written on the site (both languages), plus the project list, skills and links, lives in
+[`src/data/content.js`](src/data/content.js). Components in `src/components/` only handle layout.
 
-### `npm test`
+- **Add a project:** append an entry to `projects` with `en` and `pt` text. Remove `grade` to hide it on a card.
+- **Change the photo:** replace `public/me.jpg` (a square image of about 960×960 works best).
+- **Colours and fonts:** theme tokens are at the top of [`src/index.css`](src/index.css).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Structure
 
-### `npm run build`
+```
+index.html              entry page (sets the theme before first paint)
+src/
+  main.jsx              app bootstrap, fonts
+  App.jsx               page composition
+  index.css             Tailwind + theme tokens + animations
+  data/content.js       all text and data (EN + PT)
+  context/              theme and language providers
+  components/           Navbar, Hero, About, Journey, Projects, Beyond, Contact, Footer
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Deploy
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`npm run build` outputs a static site in `dist/` that works on any static host
+(GitHub Pages, Netlify, Vercel, Cloudflare Pages). Asset paths are relative, so it
+also works from a sub-path such as `https://mguerrinha.github.io/my-website/`.
