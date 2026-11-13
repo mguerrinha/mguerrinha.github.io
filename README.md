@@ -37,6 +37,13 @@ src/
 
 ## Deploy
 
-`npm run build` outputs a static site in `dist/` that works on any static host
-(GitHub Pages, Netlify, Vercel, Cloudflare Pages). Asset paths are relative, so it
-also works from a sub-path such as `https://mguerrinha.github.io/my-website/`.
+The site is hosted on GitHub Pages. Every push to `master` runs
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which builds the site
+and publishes `dist/`. Progress shows in the repository's **Actions** tab.
+
+One-time setup (already done once, kept here for reference): in the repository's
+**Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**.
+
+Asset paths are relative, so the same build works at `https://mguerrinha.github.io/`
+(repository named `mguerrinha.github.io`) or at a sub-path such as
+`https://mguerrinha.github.io/my-website/`.
